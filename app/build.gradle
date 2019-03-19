@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.longforus.testhotfix"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        multiDexEnabled true
+        multiDexKeepFile file('multiDex-config.txt')
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dexOptions{
+        javaMaxHeapSize '4g'
+        preDexLibraries = false
+        additionalParameters=[
+                '--multi-dex',
+                '--set-max-idx-number=50000',
+                '--main-dex-list=/multiDex-config.txt',
+                '--minimal-main-dex'
+        ]
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation project(':baselib')
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+// https://mvnrepository.com/artifact/org.apache.commons/commons-io
+    implementation group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
+
+}

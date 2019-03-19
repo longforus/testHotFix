@@ -1,0 +1,3 @@
+com/longforus/testhotfix/MainActivity.class
+com/longforus/testhotfix/SecondActivity.class
+com/longforus/testhotfix/BaseApp.class
